@@ -1,0 +1,33 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>User IP Information</title>
+    <!-- Include Google Maps API -->
+    <script async defer src="https://maps.googleapis.com/maps/api/js?key=YOUR_API_KEY&libraries=places"></script>
+    <link rel="stylesheet" href="style.css">
+</head>
+<body>
+    <div class="container">
+        <h1>User IP Information</h1>
+        <div class="user-info">
+            <h2>User Information</h2>
+            <p><strong>IP Address:</strong> <span id="ip-address"></span></p>
+            <p><strong>Latitude:</strong> <span id="latitude"></span></p>
+            <p><strong>Longitude:</strong> <span id="longitude"></span></p>
+            <p><strong>City:</strong> <span id="city"></span></p>
+            <p><strong>Region:</strong> <span id="region"></span></p>
+            <p><strong>Time Zone:</strong> <span id="timezone"></span></p>
+            <p><strong>Current Time:</strong> <span id="current-time"></span></p>
+        </div>
+        <div class="map" id="map"></div>
+        <div class="post-offices">
+            <h2>Post Offices</h2>
+            <input type="text" id="search-box" placeholder="Search by name or branch office">
+            <ul id="post-office-list"></ul>
+        </div>
+    </div>
+    <script src="script.js"></script>
+</body>
+</html>
