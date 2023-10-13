@@ -1,20 +1,229 @@
-/* Add your CSS styles here to format the page */
-.container {
-    max-width: 800px;
-    margin: 0 auto;
-    padding: 20px;
+*{
+    margin: auto;
+    padding: 0;
+    box-sizing: border-box;
+    font-family: 'Gill Sans', 'Gill Sans MT', Calibri, 'Trebuchet MS', sans-serif;
+
 }
 
-.user-info, .map, .post-offices {
+
+header > p{
+    font-size: 30px;
+    font-weight: bold;
+    color: rgba(42, 114, 181, 0.743);
+    margin: 1rem;
+    text-align: center;
+}
+
+/* Button Container */
+
+#btnContainer{
+    height: 45px;
+    width:100%;
+    /* border: 2px solid green */
+   
+}
+
+#btnContainer > button{
+    height: 40px;
+    width:180px;
+    display: inline-block;
+    margin-left: 30px;
+    background-color: black;
+    color:white;
+    /* font-weight: bold; */
+    font-size: 18px;
+    border-radius: 10px;
+}
+
+
+
+/* Menu Container */
+
+#menuContainer{
+    width:100%;
+    display: flex;
+    flex-wrap: wrap;
+}
+
+#menuContainer > div{
+    height: 100px;
+    width:400px;
     margin-bottom: 20px;
+    margin-top: 10px;
+
 }
 
-#map {
-    height: 300px;
+.menuBox1{
+    height: 45px;
+    width:100%;
+    
 }
 
-#search-box {
-    width: 100%;
+.menuBox1 > span{
+    display: inline-block;
+}
+
+.menuName{
+    font-size: 20px;
+    font-weight: 550;
+    margin-top: 20px;
+   
+}
+
+.menuResult{
+    font-size: 20px;
+    margin-top: 10px;
+    margin-left:10px;
+
+}
+
+.menuBox2{
+    height: 45px;
+    width:100%;
+    margin-top:5px;
+}
+
+.menuBox2 > span{
+    display: inline-block;
+}
+
+/*Map Container */
+
+
+#mapContainer{
+    height: 380px;
+    margin-top: 20px;
+    margin-bottom: 20px;
+    width:92%;
+    border: 2px solid rgb(0, 68, 255);
+
+}
+
+
+/* Date & Map Container */
+
+#dateContainer{
+    height: 200px;
+    width:100%;
+    
+  
+}
+
+#dateContainer > div{
+    width:92%;
+    height: 35px;
+    margin-top:10px;
+}
+
+#dateContainer > div > span{
+   display: inline-block;
+}
+
+.dateName{
+    font-size: 18px;
+    font-weight: bold;
+    margin-top:5px;
+}
+
+.dateResult{
+    font-size: 18px;
+    margin-top: 5px;
+    margin-left:10px;
+}
+
+/* Filter Container */
+
+#filterContainer{
+    width:100%;
+    
+}
+
+#filterContainer > div{
+    height: 45px;
+    width:90%;
+    margin-top:30px;
+    margin-bottom:10px;
+    border: 2px solid rgba(0, 0, 0, 0.712);
+    border-radius: 5px;
+
+
+}
+
+#filterContainer > div > button{
+    height: 35px;
+    width: 35px;
+    display: inline-block;
+    font-weight: bold;
+    font-size: 16px;
+    border: none;
+    background-color: white;
+
+}
+
+#filterContainer > div > input{
+    display: inline-block;
+    width:60%;
+    height: 35px;
+    font-size: 20px;
+    border: none;
+    background-color: white;
+    outline: none;
+
+}
+
+/* Post Address Container */
+
+#addressContainer{
+    width:100%;
+    display: flex;
+    flex-wrap: wrap;
+    
+
+}
+
+#addressContainer > div{
+    height: 200px;
+    width:350px;
     padding: 10px;
+    background-color: rgba(42, 114, 181, 0.743);
+    color: #fff;
+    margin-top:10px;
+    border-radius: 10px;
     margin-bottom: 10px;
+    align-items: self-end;
+    font-weight: 500;
+    box-shadow: 2px 5px 8px rgb(68, 67, 67);
+}
+
+
+.addressBox1{
+    height: 35px;
+    width:100%;
+}
+
+.addressBox1 > span{
+    display: inline-block;
+}
+
+.addressName{
+    font-size: 18px;
+    margin-left:10px;
+}
+
+.addressResult{
+    font-size: 18px;
+    margin-top: 5px;
+    margin-left:10px;
+
+}
+
+.addressBox2{
+    height: 30px;
+    width:100%;
+    margin-top:5px;
+}
+
+.addressBox2 > span{
+    display: inline-block;
 }

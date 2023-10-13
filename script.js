@@ -1,66 +1,214 @@
-// Get user's IP address and display information
-fetch('https://api64.ipify.org?format=json')
-    .then(response => response.json())
-    .then(data => {
-        const userIP = data.ip;
-        document.getElementById('ip-address').textContent = userIP;
+function showData(){
+    let display = document.getElementById('display');
 
-        // Fetch user's information based on IP
-        fetch(`https://ipinfo.io/${userIP}/geo`)
-            .then(response => response.json())
-            .then(ipData => {
-                document.getElementById('latitude').textContent = ipData.loc.split(',')[0];
-                document.getElementById('longitude').textContent = ipData.loc.split(',')[1];
-                document.getElementById('city').textContent = ipData.city;
-                document.getElementById('region').textContent = ipData.region;
-                document.getElementById('timezone').textContent = ipData.timezone;
+    display.innerHTML = `
 
-                // Show user's location on Google Maps
-                const map = new google.maps.Map(document.getElementById('map'), {
-                    center: { lat: parseFloat(ipData.loc.split(',')[0]), lng: parseFloat(ipData.loc.split(',')[1]) },
-                    zoom: 10,
-                });
+    <!--Menu Container-->
+    <div id="menuContainer">
 
-                // Get current time based on user's timezone
-                const currentTime = new Date().toLocaleString("en-US", { timeZone: ipData.timezone });
-                document.getElementById('current-time').textContent = currentTime;
+        <div>
+            <div class="menuBox1">
+                <span class="menuName">Latitude : </span><span class="menuResult" id="latitude"></span>
+            </div>
+            <div class="menuBox2">
+                <span class="menuName">Longitude : </span><span class="menuResult" id="longitude"></span>
+            </div>
+        </div>
 
-                // Get postal code from IP data and fetch post offices
-                const pincode = ipData.postal;
-                fetch(`https://api.postalpincode.in/pincode/${pincode}`)
-                    .then(response => response.json())
-                    .then(pincodeData => {
-                        const postOffices = pincodeData[0].PostOffice;
-                        const postOfficeList = document.getElementById('post-office-list');
-                        postOfficeList.innerHTML = ''; // Clear existing list
+        <div>
+            <div class="menuBox1">
+                <span class="menuName">City : </span><span class="menuResult" id="city"></span>
+            </div>
+            <div class="menuBox2">
+                <span class="menuName">Region : </span><span class="menuResult" id="region"></span>
+            </div>
+        </div>
 
-                        // Create a list of post offices
-                        postOffices.forEach(postOffice => {
-                            const listItem = document.createElement('li');
-                            listItem.textContent = `${postOffice.Name} (${postOffice.BranchType})`;
-                            postOfficeList.appendChild(listItem);
-                        });
+        <div>
+            <div class="menuBox1">
+                <span class="menuName">Organisation : </span><span class="menuResult" id="org"></span>
+            </div>
+            <div class="menuBox2">
+                <span class="menuName">Country : </span><span class="menuResult" id="hostname"></span>
+            </div>
+        </div>
 
-                        // Search functionality
-                        const searchBox = document.getElementById('search-box');
-                        searchBox.addEventListener('input', () => {
-                            const searchText = searchBox.value.toLowerCase();
-                            postOfficeList.innerHTML = ''; // Clear existing list
+    </div>
 
-                            postOffices.forEach(postOffice => {
-                                const postOfficeName = postOffice.Name.toLowerCase();
-                                const branchType = postOffice.BranchType.toLowerCase();
+    <!--Map Container-->
+    <div id="mapContainer">
+   
 
-                                if (postOfficeName.includes(searchText) || branchType.includes(searchText)) {
-                                    const listItem = document.createElement('li');
-                                    listItem.textContent = `${postOffice.Name} (${postOffice.BranchType})`;
-                                    postOfficeList.appendChild(listItem);
-                                }
-                            });
-                        });
+    <iframe src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d29721.88321003245!2d79.72499600063999!3d21.380633855409222!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x3a2b18692cbd60b1%3A0x4d7150bd2aabd342!2sTumsar%2C%20Maharashtra%20441912!5e0!3m2!1sen!2sin!4v1697182204762!5m2!1sen!2sin" width="100%" height="100%" style="border:0;" allowfullscreen="" loading="lazy" referrerpolicy="no-referrer-when-downgrade"></iframe>
+
+     
+
+    </div>
+
+    <!--Date & Time Container-->
+
+    <div id="dateContainer">
+        <div class="dateBox">
+            <span class="dateName">Time Zone : </span>
+            <span class="dateResult" id="timezone"></span>
+        </div>
+
+        <div class="dateBox">
+            <span class="dateName">Date & Time : </span>
+            <span class="dateResult" id="datetime"></span>
+        </div>
+
+        <div class="dateBox">
+            <span class="dateName">Pincode : </span>
+            <span class="dateResult" id="pincode"></span>
+        </div>
+
+        <div class="dateBox">
+            <span class="dateName" >Message : </span>
+            <span class="dateResult" id="msg"></span>
+        </div>
+
+    </div>
+
+    <!--Filter Container-->
+    <div id="filterContainer">
+        <div>
+            <button><i class="fa-solid fa-magnifying-glass"></i></button>
+            <input type="text" id="search" placeholder="Search By Name"/>
+        </div>
+    </div>
+
+    <!--Post Office Address Container-->
+
+    <div id="addressContainer">
+
+
+    </div>
+    
+    `
+
+    let latitude = document.getElementById('latitude');
+    let longitude = document.getElementById('longitude');
+    let region = document.getElementById('region');
+    let city = document.getElementById('city');
+    let org = document.getElementById('org');
+    let hostname = document.getElementById('hostname');
+
+    // let map = document.getElementById('mapContainer');
+
+    let timezone = document.getElementById('timezone');
+    let pincode = document.getElementById('pincode'); 
+    let datetime = document.getElementById('datetime');
+
+    let msg = document.getElementById('msg');
+
+    let container = document.getElementById('addressContainer');
+
+    
+   if(navigator.geolocation){
+        navigator.geolocation.getCurrentPosition(showPosition)
+   }else{
+        latitude.innerHTML = `Not Supported`
+        longitude.innerHTML = `Not Supported`
+   }
+
+
+    function showPosition(data){
+        console.log(data);
+        
+        latitude.innerHTML = `${data.coords.latitude}`
+        longitude.innerHTML = `${data.coords.longitude}`
+
+        
+
+    }
+
+
+    // const urlip = `https://api6.ipify.org/?format=json`;
+    const urlip = `https://api.ipify.org?format=json`;
+
+    fetch(urlip,{method:'GET'})
+    .then((res) => res.json())
+    .then((data) => {
+        console.log(data);
+        let userip = data.ip;
+        // console.log(userip);
+
+        // const  geourl = `http://api.ipstack.com/${userip}?access_key=12c18230b8191f1863f30603c8a51129`; //Old Url
+
+        const geourl =  `https://ipinfo.io/${userip}?token=ea170526cb93b3`; //New Url 
+
+        fetch(geourl,{method:'GET'})
+        .then((res) => res.json())
+        .then((data) => {
+            console.log(data);
+            city.innerHTML = `${data.city}`
+            region.innerHTML = `${data.region}`
+            org.innerHTML = `${data.org}`
+            hostname.innerHTML = `${data.country}`
+           
+
+
+            const userpin = data.postal;
+            pincode.innerHTML = `${userpin}`
+            timezone.innerHTML = `${data.timezone}`
+
+            let dateObj = new Date()
+            datetime.innerHTML = `${dateObj}`;
+
+            
+            //const pinUrl = `https://api.postalpincode.in/pincode/${userpin}`;
+
+            const pinUrl = `https://api.postalpincode.in/pincode/441912`;
+            
+                fetch(pinUrl,{method:'GET'})
+                .then((res) => res.json())
+                .then((data) => {
+                    console.log(data);
+                    msg.innerHTML = `${data[0].Message}`
+
+
+                    data[0].PostOffice.forEach((data) => {
+                        // console.log(data);
+
+                        const postOfficeDiv = document.createElement("div");
+
+                        postOfficeDiv.innerHTML = `
+
+                            <div class="addressBox1">
+                                <span class="addressName">Name : </span><span class="addressResult" id="itemName">${data.Name}</span>
+                            </div>
+                
+                            <div class="addressBox2">
+                                <span class="addressName">Branch Type : </span><span class="addressResult" id="branchName">${data.BranchType}</span>
+                            </div>
+                
+                            <div class="addressBox2">
+                                <span class="addressName">Delivery Status : </span><span class="addressResult">${data.DeliveryStatus}</span>
+                            </div>
+                
+                            <div class="addressBox2">
+                                <span class="addressName">District : </span><span class="addressResult">${data.District}</span>
+                            </div>
+                
+                            <div class="addressBox2">
+                                <span class="addressName">Division : </span><span class="addressResult">${data.Division}</span>
+                            </div>
+                        
+                        `
+
+                        container.appendChild(postOfficeDiv);
+
                     })
-                    .catch(error => console.error('Error fetching post offices:', error));
-            })
-            .catch(error => console.error('Error fetching IP information:', error));
+
+                })
+
+        })
+
+
     })
-    .catch(error => console.error('Error fetching IP address:', error));
+
+}
+showData();
+
+
