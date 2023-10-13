@@ -174,26 +174,27 @@ function showData(){
                         const postOfficeDiv = document.createElement("div");
 
                         postOfficeDiv.innerHTML = `
-
-                            <div class="addressBox1">
-                                <span class="addressName">Name : </span><span class="addressResult" id="itemName">${data.Name}</span>
+                        
+                            <div class="addressBox1" id="textContainer">
+                                <span class="addressName">Name : <span class="addressResult" id="itemName">${data.Name}</span></span>
                             </div>
                 
-                            <div class="addressBox2">
-                                <span class="addressName">Branch Type : </span><span class="addressResult" id="branchName">${data.BranchType}</span>
+                            <div class="addressBox2" id="textContainer">
+                                <span class="addressName">Branch Type : <span class="addressResult" id="branchName">${data.BranchType}</span></span>
                             </div>
                 
-                            <div class="addressBox2">
-                                <span class="addressName">Delivery Status : </span><span class="addressResult">${data.DeliveryStatus}</span>
+                            <div class="addressBox2" id="textContainer">
+                                <span class="addressName">Delivery Status : <span class="addressResult">${data.DeliveryStatus}</span></span>
                             </div>
                 
-                            <div class="addressBox2">
-                                <span class="addressName">District : </span><span class="addressResult">${data.District}</span>
+                            <div class="addressBox2" id="textContainer">
+                                <span class="addressName">District : <span class="addressResult">${data.District}</span></span>
                             </div>
                 
-                            <div class="addressBox2">
-                                <span class="addressName">Division : </span><span class="addressResult">${data.Division}</span>
+                            <div class="addressBox2" id="textContainer">
+                                <span class="addressName">Division : <span class="addressResult">${data.Division}</span></span>
                             </div>
+                        
                         
                         `
 
