@@ -57,7 +57,6 @@ header > p{
 .menuBox1{
     height: 45px;
     width:100%;
-    
 }
 
 .menuBox1 > span{
@@ -67,7 +66,7 @@ header > p{
 .menuName{
     font-size: 20px;
     font-weight: 550;
-    margin-top: 20px;
+    margin-top: 10px;
    
 }
 

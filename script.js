@@ -25,11 +25,11 @@ function showData(){
         </div>
 
         <div>
-            <div class="menuBox1">
-                <span class="menuName">Organisation : </span><span class="menuResult" id="org"></span>
-            </div>
             <div class="menuBox2">
                 <span class="menuName">Country : </span><span class="menuResult" id="hostname"></span>
+            </div>
+            <div class="menuBox1">
+                <span class="menuName">Organisation : </span><span class="menuResult" id="org"></span>
             </div>
         </div>
 
